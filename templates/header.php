@@ -29,29 +29,31 @@
         </li>
       <?php } ?>
     <?php } ?>
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-        <?php if (!empty($auth_user)) { ?>
-          <?php echo $auth_user['user_picture']; ?>
-        <?php } else { ?>
-          <img src="<?php echo base_path() . path_to_theme() . '/img/logo-symbol.png'; ?>" class="img-avatar" alt="" />
-        <?php } ?>
-      </a>
-      <div class="dropdown-menu dropdown-menu-right">
-        <?php if (!empty($auth_user)) { ?>
-          <?php if (!empty($auth_user['menus'])) { ?>
-            <div class="dropdown-header text-center">
-              <strong><?php echo t('@user\'s Account', ['@user' => $GLOBALS['user']->name]); ?></strong>
-            </div>
-            <?php foreach ($auth_user['menus'] as $keys => $values) { ?>
-              <a class="dropdown-item" href="<?php echo (preg_match('/^http/i', $values['href']) ? NULL : (!empty($cleanurl) && !empty($values['#href']) && $values['#href'] != '<front>' && $values['#href'] != '/' ? base_path() : '?q=')) . $values['href']; ?>"><i class="fa <?php echo preg_match('/logout/i', $values['href']) ? 'fa-sign-out' : 'fa-circle-thin'; ?>"></i> <?php echo t($values['title']); ?></a>
-            <?php } ?>
+    <?php if (!empty($secondary_nav)) { ?>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+          <?php if (!empty($auth_user)) { ?>
+            <?php echo $auth_user['user_picture']; ?>
+          <?php } else { ?>
+            <img src="<?php echo base_path() . path_to_theme() . '/img/logo-symbol.png'; ?>" class="img-avatar" alt="" />
           <?php } ?>
-        <?php } else { ?>
-          <a class="dropdown-item" href="<?php echo (!empty($cleanurl) ? base_path() : '?q='); ?>user/login"><i class="fa fa-sign-in"></i> <?php echo t('Login'); ?></a>
-        <?php } ?>
-      </div>
-    </li>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <?php if (!empty($auth_user)) { ?>
+            <?php if (!empty($auth_user['menus'])) { ?>
+              <div class="dropdown-header text-center">
+                <strong><?php echo t('@user\'s Account', ['@user' => $GLOBALS['user']->name]); ?></strong>
+              </div>
+              <?php foreach ($auth_user['menus'] as $keys => $values) { ?>
+                <a class="dropdown-item" href="<?php echo (preg_match('/^http/i', $values['href']) ? NULL : (!empty($cleanurl) && !empty($values['#href']) && $values['#href'] != '<front>' && $values['#href'] != '/' ? base_path() : '?q=')) . $values['href']; ?>"><i class="fa <?php echo preg_match('/logout/i', $values['href']) ? 'fa-sign-out' : 'fa-circle-thin'; ?>"></i> <?php echo t($values['title']); ?></a>
+              <?php } ?>
+            <?php } ?>
+          <?php } else { ?>
+            <a class="dropdown-item" href="<?php echo (!empty($cleanurl) ? base_path() : '?q='); ?>user/login"><i class="fa fa-sign-in"></i> <?php echo t('Login'); ?></a>
+          <?php } ?>
+        </div>
+      </li>
+    <?php } ?>
   </ul>
   <button class="navbar-toggler aside-menu-toggler" type="button">
     <span class="navbar-toggler-icon"></span>
