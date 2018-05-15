@@ -208,7 +208,14 @@ function dnccoreui_process_page(&$variables) {
             unset($o);
           }
           else {
-            $menus[$value['#original_link']['menu_name']][$key]['#href'] = (preg_match('/^http/i', $value['#href']) ? NULL : (!empty($cleanurl) && $value['#href'] != '<front>' ? base_path() : '?q=')) . ($value['#href'] == '<front>' ? NULL : $value['#href']);
+            if (!empty($value['#href']) && $value['#href'] != '<front>') {
+              $menus[$value['#original_link']['menu_name']][$key]['#href'] = (preg_match('/^http/i', $value['#href']) ? NULL : (!empty($cleanurl) && $value['#href'] != '<front>' ? base_path() : '?q=')) . ($value['#href'] == '<front>' ? NULL : $value['#href']);
+            }
+            else {
+              if (!empty($menus[$value['#original_link']['menu_name']][$key])) {
+                unset ($menus[$value['#original_link']['menu_name']][$key]);
+              }
+            }
           }
         }
         else {
